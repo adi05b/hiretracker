@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "name": "HireTrack",
+    "version": "0.1.0",
+    "description": "Track your job applications from anywhere",
+    "permissions": ["storage"],
+    "action": {
+      "default_popup": "index.html"
+    }
+  }
