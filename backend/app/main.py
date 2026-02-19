@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from .database import Base, engine, get_db
 from .models import Application
+from .parser_service import parse_job_html
 from .schemas import (
     ApplicationCreate,
     ApplicationResponse,
@@ -20,18 +21,17 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="HireTrack API",
     description="Job application tracker API",
-    version="0.1.0",
+    version="0.2.0",
 )
 
-# CORS middleware — this is what allows your Chrome extension to talk to this API.
-# Without this, Chrome blocks the requests.
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",   # Vite dev server (extension dev mode)
+        "http://localhost:5173",
         "http://localhost:3000",
     ],
-    allow_origin_regex=r"^chrome-extension://.*$",  # allows ANY Chrome extension
+    allow_origin_regex=r"^chrome-extension://.*$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,7 +39,6 @@ app.add_middleware(
 
 
 # ─── Health Check ────────────────────────────────────────────────────────────
-# Use this to quickly verify the API is running.
 
 @app.get("/api/health")
 def health_check():
@@ -64,9 +63,10 @@ def create_application(payload: ApplicationCreate, db: Session = Depends(get_db)
 def list_applications(
     status: Status | None = Query(None, description="Filter by status"),
     search: str | None = Query(None, description="Search company or role"),
+    tag: str | None = Query(None, description="Filter by tag"),
     db: Session = Depends(get_db),
 ):
-    """List all applications, optionally filtered by status or search term."""
+    """List all applications, optionally filtered by status, search term, or tag."""
     query = db.query(Application)
 
     if status:
@@ -77,6 +77,9 @@ def list_applications(
         query = query.filter(
             Application.company.ilike(pattern) | Application.role.ilike(pattern)
         )
+
+    if tag:
+        query = query.filter(Application.tags.ilike(f"%{tag}%"))
 
     return query.order_by(Application.updated_at.desc()).all()
 
@@ -119,7 +122,7 @@ def update_application(
 def update_status(
     app_id: int, payload: StatusUpdate, db: Session = Depends(get_db)
 ):
-    """Change just the status of an application (e.g. 'applied' → 'interview')."""
+    """Change just the status of an application."""
     application = db.query(Application).filter(Application.id == app_id).first()
     if not application:
         raise HTTPException(status_code=404, detail="Application not found")
@@ -143,3 +146,22 @@ def delete_application(app_id: int, db: Session = Depends(get_db)):
     db.delete(application)
     db.commit()
     return None
+
+
+# ─── PARSER ──────────────────────────────────────────────────────────────────
+
+from pydantic import BaseModel as PydanticBaseModel
+
+
+class ParseRequest(PydanticBaseModel):
+    html: str
+    url: str
+
+
+@app.post("/api/parser/extract-html")
+def extract_from_html(payload: ParseRequest):
+    """Parse job details from raw HTML. Used as a fallback for client-side detection."""
+    result = parse_job_html(payload.html, payload.url)
+    if result is None:
+        raise HTTPException(status_code=422, detail="Could not parse job details from HTML")
+    return result

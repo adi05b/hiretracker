@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
+/* Popup size — only when popup root exists */
 #root {
   width: 400px;
   min-height: 500px;
+}
+
+/* Dashboard — full page */
+#dashboard-root {
+  width: 100vw;
+  min-height: 100vh;
 }

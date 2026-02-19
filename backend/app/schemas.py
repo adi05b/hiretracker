@@ -5,17 +5,15 @@ from pydantic import BaseModel, ConfigDict
 
 
 class Status(str, Enum):
-    """All possible application statuses."""
     wishlist = "wishlist"
     applied = "applied"
-    oa = "oa"               # online assessment
+    oa = "oa"
     interview = "interview"
     offer = "offer"
     rejected = "rejected"
 
 
 class ApplicationCreate(BaseModel):
-    """What you send when creating a new application."""
     company: str
     role: str
     location: str = ""
@@ -23,10 +21,12 @@ class ApplicationCreate(BaseModel):
     source: str = "manual"
     status: Status = Status.wishlist
     notes: str = ""
+    tags: str = ""
+    salary_min: int | None = None
+    salary_max: int | None = None
 
 
 class ApplicationUpdate(BaseModel):
-    """What you send when updating an application. All fields optional."""
     company: str | None = None
     role: str | None = None
     location: str | None = None
@@ -34,15 +34,16 @@ class ApplicationUpdate(BaseModel):
     source: str | None = None
     status: Status | None = None
     notes: str | None = None
+    tags: str | None = None
+    salary_min: int | None = None
+    salary_max: int | None = None
 
 
 class StatusUpdate(BaseModel):
-    """What you send when changing just the status."""
     status: Status
 
 
 class ApplicationResponse(BaseModel):
-    """What the API returns for an application."""
     model_config = ConfigDict(from_attributes=True)
 
     id: int
@@ -53,5 +54,10 @@ class ApplicationResponse(BaseModel):
     source: str
     status: Status
     notes: str
+    tags: str
+    salary_min: int | None
+    salary_max: int | None
+    applied_date: datetime | None
+    response_date: datetime | None
     created_at: datetime
     updated_at: datetime

@@ -43,6 +43,11 @@ export default function App() {
     await fetchApps();
   };
 
+  const openDashboard = () => {
+    const url = chrome.runtime.getURL("dashboard.html");
+    chrome.tabs.create({ url });
+  };
+
   return (
     <div className="bg-white min-h-screen p-4">
       <div className="flex items-center justify-between mb-4">
@@ -51,6 +56,13 @@ export default function App() {
         </h1>
         <span className="text-xs text-gray-400">{apps.length} apps</span>
       </div>
+
+      <button
+        onClick={openDashboard}
+        className="w-full py-2 mb-2 bg-white border border-indigo-200 text-indigo-600 text-sm font-medium rounded-lg hover:bg-indigo-50 transition-colors"
+      >
+        Open Kanban Dashboard
+      </button>
 
       <AddForm onSubmit={handleCreate} />
       <StatusFilter active={filter} onChange={setFilter} />
@@ -65,11 +77,13 @@ export default function App() {
       )}
 
       {loading ? (
-        <p className="text-center text-sm text-gray-400 py-8">Loading…</p>
+        <p className="text-center text-sm text-gray-400 py-8">Loading...</p>
       ) : apps.length === 0 ? (
         <div className="text-center py-8">
           <p className="text-sm text-gray-400">No applications yet</p>
-          <p className="text-xs text-gray-300 mt-1">Click "+ Add Application" to get started</p>
+          <p className="text-xs text-gray-300 mt-1">
+            Click "+ Add Application" to get started
+          </p>
         </div>
       ) : (
         <div className="space-y-2">
