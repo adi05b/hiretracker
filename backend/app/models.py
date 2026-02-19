@@ -1,8 +1,19 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import Column, DateTime, Integer, String, Text
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
 
 from .database import Base
+
+
+class User(Base):
+    """A registered user."""
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    email = Column(String, unique=True, nullable=False, index=True)
+    password_hash = Column(String, nullable=False)
+    name = Column(String, default="")
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 
 class Application(Base):
@@ -10,6 +21,7 @@ class Application(Base):
     __tablename__ = "applications"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     company = Column(String, nullable=False)
     role = Column(String, nullable=False)
     location = Column(String, default="")
