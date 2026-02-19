@@ -12,14 +12,23 @@
     "type": "module"
   },
   "content_scripts": [
-    {
-      "matches": [
-        "https://www.linkedin.com/jobs/*",
-        "https://linkedin.com/jobs/*",
-        "https://boards.greenhouse.io/*",
-        "https://jobs.lever.co/*"
-      ],
-      "js": ["src/content/detector.ts"]
-    }
-  ]
+  {
+    "matches": [
+      "https://www.linkedin.com/jobs/*",
+      "https://linkedin.com/jobs/*",
+      "https://boards.greenhouse.io/*",
+      "https://jobs.lever.co/*",
+      "https://www.indeed.com/viewjob*",
+      "https://indeed.com/viewjob*",
+      "https://www.indeed.com/jobs*",
+      "https://www.glassdoor.com/job-listing/*",
+      "https://www.glassdoor.com/Job/*",
+      "https://app.joinhandshake.com/jobs/*",
+      "https://app.joinhandshake.com/stu/jobs/*",
+      "https://*.myworkdayjobs.com/*",
+      "https://www.simplyhired.com/job/*"
+    ],
+    "js": ["src/content/detector.ts"]
+  }
+]
 }

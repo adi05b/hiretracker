@@ -13,6 +13,10 @@ function extractJobId(url: string): string {
   }
 }
 
+function normalize(str: string): string {
+  return str.toLowerCase().trim().replace(/[^a-z0-9]/g, "");
+}
+
 function getAuthHeaders(): Promise<Record<string, string>> {
   return new Promise((resolve) => {
     chrome.storage.local.get("hiretrack_token", (result) => {
@@ -72,9 +76,23 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         .then((resp) => resp.json())
         .then((apps) => {
           const currentId = extractJobId(message.url);
-          const match = apps.find(
+
+          // Match 1: Same URL (same job ID on same platform)
+          let match = apps.find(
             (a: any) => a.job_url && extractJobId(a.job_url) === currentId
           );
+
+          // Match 2: Same company + role (cross-platform duplicate)
+          if (!match && message.company && message.role) {
+            const normCompany = normalize(message.company);
+            const normRole = normalize(message.role);
+            match = apps.find(
+              (a: any) =>
+                normalize(a.company) === normCompany &&
+                normalize(a.role) === normRole
+            );
+          }
+
           if (match) {
             sendResponse({ exists: true, status: match.status, id: match.id });
           } else {

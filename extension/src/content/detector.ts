@@ -36,38 +36,30 @@ function injectStyles() {
     .hiretrack-btn-applied { background:#16a34a; color:white; }
     .hiretrack-btn-applied:hover { background:#15803d; }
     .hiretrack-badge-msg { font-size:12px; text-align:center; margin-top:8px; }
+    .hiretrack-badge-source { display:inline-block; font-size:10px; color:#6b7280; background:#f3f4f6; padding:2px 6px; border-radius:4px; margin-top:6px; }
   `;
   document.head.appendChild(style);
 }
 
+// ─── LINKEDIN ───────────────────────────────────────────────────────────────
+
 function detectLinkedIn(): JobData | null {
   try {
-    // Grab salary text from the page
     let salaryText = "";
     const salaryEl = document.querySelector(".job-details-jobs-unified-top-card__job-insight--highlight, .salary-main-rail__data-body");
-    if (salaryEl) {
-      salaryText = salaryEl.textContent?.trim() || "";
-    }
-    // Fallback: look for salary in the insight pills
+    if (salaryEl) salaryText = salaryEl.textContent?.trim() || "";
     if (!salaryText) {
       const pills = document.querySelectorAll(".job-details-jobs-unified-top-card__job-insight span");
       for (const pill of pills) {
         const text = pill.textContent?.trim() || "";
-        if (text.includes("$") || text.includes("/yr") || text.includes("/hr")) {
-          salaryText = text;
-          break;
-        }
+        if (text.includes("$") || text.includes("/yr") || text.includes("/hr")) { salaryText = text; break; }
       }
     }
 
-    // Grab job description
     let jobDescription = "";
     const descEl = document.querySelector(".jobs-description__content, .jobs-box__html-content, .jobs-description-content__text");
-    if (descEl) {
-      jobDescription = descEl.textContent?.trim().substring(0, 5000) || "";
-    }
+    if (descEl) jobDescription = descEl.textContent?.trim().substring(0, 5000) || "";
 
-    // Try JSON-LD first
     const scripts = document.querySelectorAll('script[type="application/ld+json"]');
     for (const script of scripts) {
       try {
@@ -75,45 +67,34 @@ function detectLinkedIn(): JobData | null {
         if (data["@type"] === "JobPosting") {
           if (!salaryText && data.baseSalary) {
             const sal = data.baseSalary;
-            if (sal.value) {
-              salaryText = `${sal.currency || "$"} ${sal.value.minValue || ""}–${sal.value.maxValue || ""} ${sal.value.unitText || ""}`;
-            }
+            if (sal.value) salaryText = `${sal.currency || "$"} ${sal.value.minValue || ""}–${sal.value.maxValue || ""} ${sal.value.unitText || ""}`;
           }
-          if (!jobDescription && data.description) {
-            jobDescription = data.description.replace(/<[^>]*>/g, " ").substring(0, 5000);
-          }
+          if (!jobDescription && data.description) jobDescription = data.description.replace(/<[^>]*>/g, " ").substring(0, 5000);
           return {
             company: typeof data.hiringOrganization === "object" ? data.hiringOrganization.name : data.hiringOrganization || "",
             role: data.title || "",
             location: typeof data.jobLocation === "object" ? data.jobLocation.address?.addressLocality || "" : "",
-            job_url: window.location.href,
-            source: "linkedin",
-            salary_text: salaryText,
-            job_description: jobDescription,
+            job_url: window.location.href, source: "linkedin", salary_text: salaryText, job_description: jobDescription,
           };
         }
       } catch { continue; }
     }
 
-    // Fallback: DOM scraping
     const titleEl = document.querySelector(".job-details-jobs-unified-top-card__job-title, .jobs-unified-top-card__job-title, .t-24");
     const companyEl = document.querySelector(".job-details-jobs-unified-top-card__company-name, .jobs-unified-top-card__company-name");
     const locationEl = document.querySelector(".job-details-jobs-unified-top-card__bullet, .jobs-unified-top-card__bullet");
-
     if (titleEl && companyEl) {
       return {
-        company: companyEl.textContent?.trim() || "",
-        role: titleEl.textContent?.trim() || "",
-        location: locationEl?.textContent?.trim() || "",
-        job_url: window.location.href,
-        source: "linkedin",
-        salary_text: salaryText,
-        job_description: jobDescription,
+        company: companyEl.textContent?.trim() || "", role: titleEl.textContent?.trim() || "",
+        location: locationEl?.textContent?.trim() || "", job_url: window.location.href,
+        source: "linkedin", salary_text: salaryText, job_description: jobDescription,
       };
     }
     return null;
   } catch { return null; }
 }
+
+// ─── GREENHOUSE ─────────────────────────────────────────────────────────────
 
 function detectGreenhouse(): JobData | null {
   try {
@@ -124,10 +105,8 @@ function detectGreenhouse(): JobData | null {
     if (titleEl) {
       return {
         company: companyEl?.textContent?.trim() || new URL(window.location.href).hostname.split(".")[0],
-        role: titleEl.textContent?.trim() || "",
-        location: locationEl?.textContent?.trim() || "",
-        job_url: window.location.href,
-        source: "greenhouse",
+        role: titleEl.textContent?.trim() || "", location: locationEl?.textContent?.trim() || "",
+        job_url: window.location.href, source: "greenhouse",
         job_description: descEl?.textContent?.trim().substring(0, 5000) || "",
       };
     }
@@ -135,33 +114,195 @@ function detectGreenhouse(): JobData | null {
   } catch { return null; }
 }
 
+// ─── LEVER ──────────────────────────────────────────────────────────────────
+
 function detectLever(): JobData | null {
   try {
     const titleEl = document.querySelector(".posting-headline h2");
     const locationEl = document.querySelector(".posting-categories .sort-by-time");
-    const companyName = new URL(window.location.href).hostname.split(".")[0] || "";
+    const companyName = new URL(window.location.href).pathname.split("/")[1] || "";
     const descEl = document.querySelector(".section-wrapper.page-full-width");
     if (titleEl) {
       return {
         company: companyName.charAt(0).toUpperCase() + companyName.slice(1),
-        role: titleEl.textContent?.trim() || "",
-        location: locationEl?.textContent?.trim() || "",
-        job_url: window.location.href,
-        source: "lever",
+        role: titleEl.textContent?.trim() || "", location: locationEl?.textContent?.trim() || "",
+        job_url: window.location.href, source: "lever",
         job_description: descEl?.textContent?.trim().substring(0, 5000) || "",
       };
     }
     return null;
   } catch { return null; }
 }
+
+// ─── INDEED ─────────────────────────────────────────────────────────────────
+
+function detectIndeed(): JobData | null {
+  try {
+    // Try JSON-LD first
+    const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+    for (const script of scripts) {
+      try {
+        const data = JSON.parse(script.textContent || "");
+        if (data["@type"] === "JobPosting") {
+          const org = data.hiringOrganization || {};
+          const loc = data.jobLocation?.[0]?.address || data.jobLocation?.address || {};
+          let salaryText = "";
+          if (data.baseSalary?.value) {
+            const s = data.baseSalary;
+            salaryText = `${s.currency || "$"} ${s.value.minValue || ""}–${s.value.maxValue || ""} ${s.value.unitText || ""}`;
+          }
+          return {
+            company: typeof org === "object" ? org.name || "" : String(org),
+            role: data.title || "",
+            location: [loc.addressLocality, loc.addressRegion].filter(Boolean).join(", "),
+            job_url: window.location.href, source: "indeed",
+            salary_text: salaryText,
+            job_description: (data.description || "").replace(/<[^>]*>/g, " ").substring(0, 5000),
+          };
+        }
+      } catch { continue; }
+    }
+
+    // DOM fallback
+    const titleEl = document.querySelector(".jobsearch-JobInfoHeader-title, h1[data-testid='jobsearch-JobInfoHeader-title'], .icl-u-xs-mb--xs");
+    const companyEl = document.querySelector("[data-testid='inlineHeader-companyName'], .jobsearch-InlineCompanyRating-companyHeader, .icl-u-lg-mr--sm");
+    const locationEl = document.querySelector("[data-testid='inlineHeader-companyLocation'], .jobsearch-JobInfoHeader-subtitle > div:nth-child(2), .icl-u-xs-mt--xs");
+    const salaryEl = document.querySelector("#salaryInfoAndJobType, .jobsearch-JobMetadataHeader-item");
+    const descEl = document.querySelector("#jobDescriptionText, .jobsearch-jobDescriptionText");
+
+    if (titleEl) {
+      return {
+        company: companyEl?.textContent?.trim() || "",
+        role: titleEl.textContent?.trim() || "",
+        location: locationEl?.textContent?.trim() || "",
+        job_url: window.location.href, source: "indeed",
+        salary_text: salaryEl?.textContent?.trim() || "",
+        job_description: descEl?.textContent?.trim().substring(0, 5000) || "",
+      };
+    }
+    return null;
+  } catch { return null; }
+}
+
+// ─── GLASSDOOR ──────────────────────────────────────────────────────────────
+
+function detectGlassdoor(): JobData | null {
+  try {
+    const titleEl = document.querySelector("[data-test='job-title'], .job-title, h1");
+    const companyEl = document.querySelector("[data-test='employerName'], .employer-name, .css-87uc0g");
+    const locationEl = document.querySelector("[data-test='location'], .location, .css-56kyx5");
+    const salaryEl = document.querySelector("[data-test='detailSalary'], .salary-estimate, .css-1bluz6i");
+    const descEl = document.querySelector(".jobDescriptionContent, [data-test='jobDescription'], .desc");
+
+    if (titleEl) {
+      return {
+        company: companyEl?.textContent?.trim().replace(/[\d.★]+$/, "").trim() || "",
+        role: titleEl.textContent?.trim() || "",
+        location: locationEl?.textContent?.trim() || "",
+        job_url: window.location.href, source: "glassdoor",
+        salary_text: salaryEl?.textContent?.trim() || "",
+        job_description: descEl?.textContent?.trim().substring(0, 5000) || "",
+      };
+    }
+    return null;
+  } catch { return null; }
+}
+
+// ─── HANDSHAKE ──────────────────────────────────────────────────────────────
+
+function detectHandshake(): JobData | null {
+  try {
+    const titleEl = document.querySelector("h1, [data-hook='job-title'], .style__title___");
+    const companyEl = document.querySelector("[data-hook='employer-name'], a[href*='/employers/'], .style__employer___");
+    const locationEl = document.querySelector("[data-hook='job-location'], .style__location___");
+    const descEl = document.querySelector("[data-hook='job-description'], .style__description___");
+
+    if (titleEl && companyEl) {
+      return {
+        company: companyEl.textContent?.trim() || "",
+        role: titleEl.textContent?.trim() || "",
+        location: locationEl?.textContent?.trim() || "",
+        job_url: window.location.href, source: "handshake",
+        job_description: descEl?.textContent?.trim().substring(0, 5000) || "",
+      };
+    }
+    return null;
+  } catch { return null; }
+}
+
+// ─── WORKDAY ────────────────────────────────────────────────────────────────
+
+function detectWorkday(): JobData | null {
+  try {
+    // Workday uses dynamic rendering, try multiple selectors
+    const titleEl = document.querySelector("[data-automation-id='jobPostingHeader'] h2, .css-1q2dra3, h2[data-automation-id='header']");
+    const companyEl = document.querySelector("[data-automation-id='jobPostingHeader'] .css-1t5f0fr, dd[data-automation-id='company']");
+    const locationEl = document.querySelector("[data-automation-id='locations'], dd[data-automation-id='location'], .css-cygeeu");
+    const descEl = document.querySelector("[data-automation-id='jobPostingDescription'], .css-pzqv0e");
+
+    // Fallback: get company from subdomain (company.myworkdayjobs.com)
+    let company = companyEl?.textContent?.trim() || "";
+    if (!company) {
+      const hostname = window.location.hostname;
+      const parts = hostname.split(".");
+      if (parts.length > 2) {
+        company = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+      }
+    }
+
+    if (titleEl) {
+      return {
+        company: company,
+        role: titleEl.textContent?.trim() || "",
+        location: locationEl?.textContent?.trim() || "",
+        job_url: window.location.href, source: "workday",
+        job_description: descEl?.textContent?.trim().substring(0, 5000) || "",
+      };
+    }
+    return null;
+  } catch { return null; }
+}
+
+// ─── SIMPLYHIRED ────────────────────────────────────────────────────────────
+
+function detectSimplyHired(): JobData | null {
+  try {
+    const titleEl = document.querySelector("h1[data-testid='viewJobTitle'], h2.viewjob-jobTitle, h1");
+    const companyEl = document.querySelector("[data-testid='viewJobCompanyName'], .viewjob-labelWithIcon, .jobposting-company");
+    const locationEl = document.querySelector("[data-testid='viewJobCompanyLocation'], .viewjob-labelWithIcon:nth-child(2), .jobposting-location");
+    const salaryEl = document.querySelector("[data-testid='viewJobBodyJobCompensation'], .viewjob-salary");
+    const descEl = document.querySelector("[data-testid='viewJobBody'], .viewjob-jobDescription");
+
+    if (titleEl) {
+      return {
+        company: companyEl?.textContent?.trim() || "",
+        role: titleEl.textContent?.trim() || "",
+        location: locationEl?.textContent?.trim() || "",
+        job_url: window.location.href, source: "simplyhired",
+        salary_text: salaryEl?.textContent?.trim() || "",
+        job_description: descEl?.textContent?.trim().substring(0, 5000) || "",
+      };
+    }
+    return null;
+  } catch { return null; }
+}
+
+// ─── MAIN DETECT ────────────────────────────────────────────────────────────
 
 function detect(): JobData | null {
   const url = window.location.href;
   if (url.includes("linkedin.com")) return detectLinkedIn();
   if (url.includes("greenhouse.io")) return detectGreenhouse();
   if (url.includes("lever.co")) return detectLever();
+  if (url.includes("indeed.com")) return detectIndeed();
+  if (url.includes("glassdoor.com")) return detectGlassdoor();
+  if (url.includes("joinhandshake.com")) return detectHandshake();
+  if (url.includes("myworkdayjobs.com")) return detectWorkday();
+  if (url.includes("simplyhired.com")) return detectSimplyHired();
   return null;
 }
+
+// ─── BADGE (unchanged) ─────────────────────────────────────────────────────
 
 function createBadge(jobData: JobData, existingStatus: string | null, existingId: number | null) {
   if (document.getElementById("hiretrack-badge")) return;
@@ -174,6 +315,8 @@ function createBadge(jobData: JobData, existingStatus: string | null, existingId
   const salaryLine = jobData.salary_text
     ? `<p class="hiretrack-badge-salary">${jobData.salary_text}</p>`
     : `<p class="hiretrack-badge-salary" style="color:#9ca3af;">Salary: Not disclosed</p>`;
+
+  const sourceBadge = `<span class="hiretrack-badge-source">${jobData.source}</span>`;
 
   if (existingStatus === null) {
     statusHtml = `<div class="hiretrack-badge-status-label hiretrack-status-new">Not Saved</div>`;
@@ -206,6 +349,7 @@ function createBadge(jobData: JobData, existingStatus: string | null, existingId
       <p class="hiretrack-badge-info"><strong>${jobData.role}</strong></p>
       <p class="hiretrack-badge-info">${jobData.company} &bull; ${jobData.location}</p>
       ${salaryLine}
+      ${sourceBadge}
       ${statusHtml}
       ${buttonsHtml}
       <div class="hiretrack-badge-msg" id="hiretrack-msg"></div>
@@ -277,17 +421,22 @@ function createBadge(jobData: JobData, existingStatus: string | null, existingId
   });
 }
 
+// ─── INIT ───────────────────────────────────────────────────────────────────
+
 function init() {
   injectStyles();
   const jobData = detect();
   if (jobData && jobData.company && jobData.role) {
-    chrome.runtime.sendMessage({ type: "CHECK_JOB", url: jobData.job_url }, (response) => {
-      if (response?.exists) {
-        createBadge(jobData, response.status, response.id);
-      } else {
-        createBadge(jobData, null, null);
+    chrome.runtime.sendMessage(
+      { type: "CHECK_JOB", url: jobData.job_url, company: jobData.company, role: jobData.role },
+      (response) => {
+        if (response?.exists) {
+          createBadge(jobData, response.status, response.id);
+        } else {
+          createBadge(jobData, null, null);
+        }
       }
-    });
+    );
   }
 }
 
