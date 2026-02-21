@@ -26,7 +26,9 @@
       "https://app.joinhandshake.com/jobs/*",
       "https://app.joinhandshake.com/stu/jobs/*",
       "https://*.myworkdayjobs.com/*",
-      "https://www.simplyhired.com/job/*"
+      "https://www.simplyhired.com/job/*",
+      "https://*.joinhandshake.com/jobs/*",
+      "https://*.joinhandshake.com/stu/jobs/*"
     ],
     "js": ["src/content/detector.ts"]
   }

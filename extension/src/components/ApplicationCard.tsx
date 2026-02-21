@@ -18,12 +18,14 @@ interface Props {
 }
 
 function formatDate(utcDateStr: string): string {
-  // Ensure the date is treated as UTC
   const raw = utcDateStr.endsWith("Z") ? utcDateStr : utcDateStr + "Z";
   const date = new Date(raw);
   const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffDays = Math.floor(diffMs / 86_400_000);
+
+  // Compare calendar dates in local timezone
+  const dateLocal = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const nowLocal = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diffDays = Math.round((nowLocal.getTime() - dateLocal.getTime()) / 86_400_000);
 
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
