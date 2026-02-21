@@ -8,7 +8,6 @@ HireTrack automatically detects job postings on LinkedIn, Indeed, Glassdoor, Gre
 ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-blue)
 ![Python](https://img.shields.io/badge/python-3.13-3776AB)
 ![React](https://img.shields.io/badge/react-18-61DAFB)
-![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
@@ -42,7 +41,7 @@ Application funnel, response rates, and source breakdown at a glance.
 
 ## Architecture
 
-![HireTrack Architecture](docs/architecture.svg)
+![HireTrack Architecture](docs/screenshots/architecture.png)
 
 ---
 
