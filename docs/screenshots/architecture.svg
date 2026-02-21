@@ -1,0 +1,309 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 780" font-family="'Segoe UI', -apple-system, system-ui, sans-serif">
+  <defs>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#94a3b8" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6366f1"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="780" fill="#fafbfc" rx="0"/>
+
+  <!-- Title bar -->
+  <rect x="0" y="0" width="1100" height="56" fill="#0f172a" rx="0"/>
+  <text x="36" y="36" fill="#f8fafc" font-size="20" font-weight="700" letter-spacing="0.5">
+    <tspan fill="#818cf8">Hire</tspan><tspan>Track</tspan>
+  </text>
+  <text x="155" y="36" fill="#94a3b8" font-size="14" font-weight="400">System Architecture</text>
+
+  <!-- Legend -->
+  <rect x="730" y="14" width="12" height="12" rx="2" fill="#6366f1" opacity="0.2" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="748" y="25" fill="#cbd5e1" font-size="10">Client</text>
+  <rect x="800" y="14" width="12" height="12" rx="2" fill="#059669" opacity="0.2" stroke="#059669" stroke-width="1.5"/>
+  <text x="818" y="25" fill="#cbd5e1" font-size="10">Server</text>
+  <rect x="870" y="14" width="12" height="12" rx="2" fill="#d97706" opacity="0.2" stroke="#d97706" stroke-width="1.5"/>
+  <text x="888" y="25" fill="#cbd5e1" font-size="10">Data</text>
+  <rect x="930" y="14" width="12" height="12" rx="2" fill="#64748b" opacity="0.15" stroke="#64748b" stroke-width="1.5"/>
+  <text x="948" y="25" fill="#cbd5e1" font-size="10">Infrastructure</text>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- CLIENT TIER -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <text x="36" y="88" fill="#475569" font-size="11" font-weight="600" letter-spacing="3">CLIENT TIER</text>
+  <line x1="130" y1="84" x2="1064" y2="84" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Job Sites -->
+  <rect x="36" y="104" width="160" height="160" rx="8" fill="#fff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="36" y="104" width="160" height="34" rx="8" fill="#f8fafc"/>
+  <line x1="36" y1="138" x2="196" y2="138" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="116" y="126" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700">Job Platforms</text>
+
+  <rect x="52" y="148" width="58" height="20" rx="10" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="81" y="162" text-anchor="middle" fill="#4338ca" font-size="9" font-weight="600">LinkedIn</text>
+  <rect x="116" y="148" width="58" height="20" rx="10" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="145" y="162" text-anchor="middle" fill="#4338ca" font-size="9" font-weight="600">Indeed</text>
+
+  <rect x="52" y="174" width="58" height="20" rx="10" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="81" y="188" text-anchor="middle" fill="#4338ca" font-size="9" font-weight="600">Glassdoor</text>
+  <rect x="116" y="174" width="58" height="20" rx="10" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="145" y="188" text-anchor="middle" fill="#4338ca" font-size="9" font-weight="600">Lever</text>
+
+  <rect x="52" y="200" width="58" height="20" rx="10" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="81" y="214" text-anchor="middle" fill="#4338ca" font-size="9" font-weight="600">Workday</text>
+  <rect x="116" y="200" width="58" height="20" rx="10" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="145" y="214" text-anchor="middle" fill="#4338ca" font-size="9" font-weight="600">G-house</text>
+
+  <rect x="52" y="226" width="58" height="20" rx="10" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="81" y="240" text-anchor="middle" fill="#4338ca" font-size="9" font-weight="600">Handshake</text>
+  <rect x="116" y="226" width="58" height="20" rx="10" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="145" y="240" text-anchor="middle" fill="#4338ca" font-size="9" font-weight="600">SimplyHired</text>
+
+  <!-- Arrow: Job Sites → Content Scripts -->
+  <line x1="196" y1="184" x2="248" y2="184" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <text x="222" y="178" text-anchor="middle" fill="#6366f1" font-size="8">DOM</text>
+
+  <!-- Content Scripts -->
+  <rect x="260" y="104" width="195" height="160" rx="8" fill="#fff" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="260" y="104" width="195" height="34" rx="8" fill="#eef2ff"/>
+  <line x1="260" y1="138" x2="455" y2="138" stroke="#c7d2fe" stroke-width="1"/>
+  <circle cx="280" cy="121" r="8" fill="#6366f1" opacity="0.15"/>
+  <text x="280" y="125" text-anchor="middle" fill="#6366f1" font-size="10" font-weight="700">1</text>
+  <text x="370" y="126" text-anchor="middle" fill="#312e81" font-size="12" font-weight="700">Content Scripts</text>
+
+  <text x="278" y="160" fill="#475569" font-size="10.5">Detect job postings via</text>
+  <text x="278" y="176" fill="#475569" font-size="10.5">JSON-LD + DOM selectors</text>
+  <line x1="278" y1="186" x2="437" y2="186" stroke="#e2e8f0" stroke-width="0.75" stroke-dasharray="4,3"/>
+  <text x="278" y="202" fill="#475569" font-size="10.5">Extract: company, role,</text>
+  <text x="278" y="218" fill="#475569" font-size="10.5">location, salary, description</text>
+  <line x1="278" y1="228" x2="437" y2="228" stroke="#e2e8f0" stroke-width="0.75" stroke-dasharray="4,3"/>
+  <text x="278" y="244" fill="#475569" font-size="10.5">Inject floating save badge</text>
+
+  <!-- Arrow: Content Scripts → Service Worker -->
+  <line x1="455" y1="184" x2="508" y2="184" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <text x="481" y="175" text-anchor="middle" fill="#6366f1" font-size="8" font-weight="500">chrome</text>
+  <text x="481" y="195" text-anchor="middle" fill="#6366f1" font-size="8" font-weight="500">message</text>
+
+  <!-- Service Worker -->
+  <rect x="520" y="104" width="195" height="160" rx="8" fill="#fff" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="520" y="104" width="195" height="34" rx="8" fill="#eef2ff"/>
+  <line x1="520" y1="138" x2="715" y2="138" stroke="#c7d2fe" stroke-width="1"/>
+  <circle cx="540" cy="121" r="8" fill="#6366f1" opacity="0.15"/>
+  <text x="540" y="125" text-anchor="middle" fill="#6366f1" font-size="10" font-weight="700">2</text>
+  <text x="628" y="126" text-anchor="middle" fill="#312e81" font-size="12" font-weight="700">Service Worker</text>
+
+  <text x="538" y="160" fill="#475569" font-size="10.5">Cross-platform dedup</text>
+  <text x="538" y="176" fill="#475569" font-size="10.5">(URL + company/role match)</text>
+  <line x1="538" y1="186" x2="697" y2="186" stroke="#e2e8f0" stroke-width="0.75" stroke-dasharray="4,3"/>
+  <text x="538" y="202" fill="#475569" font-size="10.5">JWT token management</text>
+  <text x="538" y="218" fill="#475569" font-size="10.5">via chrome.storage.local</text>
+  <line x1="538" y1="228" x2="697" y2="228" stroke="#e2e8f0" stroke-width="0.75" stroke-dasharray="4,3"/>
+  <text x="538" y="244" fill="#475569" font-size="10.5">Routes API calls to backend</text>
+
+  <!-- Extension Popup -->
+  <rect x="780" y="104" width="145" height="90" rx="8" fill="#fff" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="780" y="104" width="145" height="34" rx="8" fill="#eef2ff"/>
+  <line x1="780" y1="138" x2="925" y2="138" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="852" y="126" text-anchor="middle" fill="#312e81" font-size="12" font-weight="700">Popup UI</text>
+  <text x="798" y="158" fill="#475569" font-size="10.5">Auth · Add · List</text>
+  <text x="798" y="175" fill="#475569" font-size="10.5">Status filters</text>
+
+  <!-- Dashboard -->
+  <rect x="940" y="104" width="124" height="90" rx="8" fill="#fff" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="940" y="104" width="124" height="34" rx="8" fill="#eef2ff"/>
+  <line x1="940" y1="138" x2="1064" y2="138" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="1002" y="126" text-anchor="middle" fill="#312e81" font-size="12" font-weight="700">Dashboard</text>
+  <text x="958" y="158" fill="#475569" font-size="10.5">Kanban (DnD)</text>
+  <text x="958" y="175" fill="#475569" font-size="10.5">Analytics charts</text>
+
+  <!-- Arrow: Popup ↔ Service Worker -->
+  <line x1="780" y1="149" x2="715" y2="149" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrowBlue)" stroke-dasharray="5,3"/>
+
+  <!-- Arrow: Dashboard ↔ Service Worker -->
+  <path d="M 1002 194 L 1002 290 L 618 290 L 618 270" stroke="#6366f1" stroke-width="1.5" fill="none" marker-end="url(#arrowBlue)" stroke-dasharray="5,3"/>
+
+  <!-- Tech labels on client boxes -->
+  <rect x="260" y="268" width="62" height="16" rx="3" fill="#f1f5f9"/>
+  <text x="291" y="280" text-anchor="middle" fill="#64748b" font-size="8.5" font-weight="600">TypeScript</text>
+  <rect x="520" y="268" width="80" height="16" rx="3" fill="#f1f5f9"/>
+  <text x="560" y="280" text-anchor="middle" fill="#64748b" font-size="8.5" font-weight="600">Manifest V3</text>
+  <rect x="780" y="198" width="80" height="16" rx="3" fill="#f1f5f9"/>
+  <text x="820" y="210" text-anchor="middle" fill="#64748b" font-size="8.5" font-weight="600">React + TS</text>
+  <rect x="940" y="198" width="75" height="16" rx="3" fill="#f1f5f9"/>
+  <text x="978" y="210" text-anchor="middle" fill="#64748b" font-size="8.5" font-weight="600">Recharts</text>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- NETWORK BOUNDARY -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <line x1="36" y1="320" x2="1064" y2="320" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="8,4"/>
+  <rect x="450" y="308" width="200" height="24" rx="12" fill="#fafbfc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="550" y="324" text-anchor="middle" fill="#64748b" font-size="10" font-weight="600">HTTPS  ·  REST API  ·  JWT</text>
+
+  <!-- Main API Arrow -->
+  <line x1="618" y1="264" x2="618" y2="308" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="618" y1="332" x2="618" y2="368" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- SERVER TIER -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <text x="36" y="360" fill="#475569" font-size="11" font-weight="600" letter-spacing="3">SERVER TIER</text>
+  <line x1="130" y1="356" x2="1064" y2="356" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- FastAPI box -->
+  <rect x="36" y="376" width="1028" height="200" rx="10" fill="#f0fdf4" stroke="#059669" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="36" y="376" width="1028" height="36" rx="10" fill="#dcfce7"/>
+  <line x1="36" y1="412" x2="1064" y2="412" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="56" y="400" fill="#166534" font-size="14" font-weight="700">FastAPI</text>
+  <rect x="120" y="386" width="60" height="18" rx="4" fill="#059669" opacity="0.12"/>
+  <text x="150" y="399" text-anchor="middle" fill="#059669" font-size="9" font-weight="600">Python</text>
+  <rect x="186" y="386" width="100" height="18" rx="4" fill="#059669" opacity="0.12"/>
+  <text x="236" y="399" text-anchor="middle" fill="#059669" font-size="9" font-weight="600">Auto Swagger UI</text>
+
+  <!-- Auth -->
+  <rect x="56" y="426" width="220" height="134" rx="6" fill="#fff" stroke="#bbf7d0" stroke-width="1.2"/>
+  <rect x="56" y="426" width="220" height="28" rx="6" fill="#f0fdf4"/>
+  <line x1="56" y1="454" x2="276" y2="454" stroke="#bbf7d0" stroke-width="1"/>
+  <circle cx="74" cy="440" r="7" fill="#059669" opacity="0.15"/>
+  <text x="74" y="444" text-anchor="middle" fill="#059669" font-size="9" font-weight="700">A</text>
+  <text x="156" y="445" text-anchor="middle" fill="#166534" font-size="11.5" font-weight="700">Authentication</text>
+
+  <text x="70" y="474" fill="#374151" font-size="10.5" font-weight="500">POST</text>
+  <text x="102" y="474" fill="#64748b" font-size="10.5">/auth/register</text>
+  <text x="70" y="492" fill="#374151" font-size="10.5" font-weight="500">POST</text>
+  <text x="102" y="492" fill="#64748b" font-size="10.5">/auth/login</text>
+  <text x="70" y="510" fill="#374151" font-size="10.5" font-weight="500">GET</text>
+  <text x="102" y="510" fill="#64748b" font-size="10.5">/auth/me</text>
+  <line x1="70" y1="520" x2="262" y2="520" stroke="#e2e8f0" stroke-width="0.75"/>
+  <text x="70" y="537" fill="#059669" font-size="9.5">bcrypt · JWT · email normalization</text>
+  <text x="70" y="551" fill="#059669" font-size="9.5">generic errors (no enumeration)</text>
+
+  <!-- Applications CRUD -->
+  <rect x="292" y="426" width="250" height="134" rx="6" fill="#fff" stroke="#bbf7d0" stroke-width="1.2"/>
+  <rect x="292" y="426" width="250" height="28" rx="6" fill="#f0fdf4"/>
+  <line x1="292" y1="454" x2="542" y2="454" stroke="#bbf7d0" stroke-width="1"/>
+  <circle cx="310" cy="440" r="7" fill="#059669" opacity="0.15"/>
+  <text x="310" y="444" text-anchor="middle" fill="#059669" font-size="9" font-weight="700">B</text>
+  <text x="418" y="445" text-anchor="middle" fill="#166534" font-size="11.5" font-weight="700">Applications CRUD</text>
+
+  <text x="306" y="474" fill="#374151" font-size="10.5" font-weight="500">POST</text>
+  <text x="340" y="474" fill="#64748b" font-size="10.5">/applications</text>
+  <text x="306" y="492" fill="#374151" font-size="10.5" font-weight="500">GET</text>
+  <text x="340" y="492" fill="#64748b" font-size="10.5">/applications?status=&amp;search=</text>
+  <text x="306" y="510" fill="#374151" font-size="10.5" font-weight="500">PATCH</text>
+  <text x="348" y="510" fill="#64748b" font-size="10.5">/applications/:id/status</text>
+  <line x1="306" y1="520" x2="528" y2="520" stroke="#e2e8f0" stroke-width="0.75"/>
+  <text x="306" y="537" fill="#059669" font-size="9.5">PUT · DELETE · per-user scoping</text>
+  <text x="306" y="551" fill="#059669" font-size="9.5">tag filters · full-text search</text>
+
+  <!-- Analytics -->
+  <rect x="558" y="426" width="220" height="134" rx="6" fill="#fff" stroke="#bbf7d0" stroke-width="1.2"/>
+  <rect x="558" y="426" width="220" height="28" rx="6" fill="#f0fdf4"/>
+  <line x1="558" y1="454" x2="778" y2="454" stroke="#bbf7d0" stroke-width="1"/>
+  <circle cx="576" cy="440" r="7" fill="#059669" opacity="0.15"/>
+  <text x="576" y="444" text-anchor="middle" fill="#059669" font-size="9" font-weight="700">C</text>
+  <text x="672" y="445" text-anchor="middle" fill="#166534" font-size="11.5" font-weight="700">Analytics Engine</text>
+
+  <text x="572" y="474" fill="#374151" font-size="10.5" font-weight="500">GET</text>
+  <text x="600" y="474" fill="#64748b" font-size="10.5">/analytics/summary</text>
+  <text x="572" y="492" fill="#374151" font-size="10.5" font-weight="500">GET</text>
+  <text x="600" y="492" fill="#64748b" font-size="10.5">/analytics/funnel</text>
+  <line x1="572" y1="504" x2="764" y2="504" stroke="#e2e8f0" stroke-width="0.75"/>
+  <text x="572" y="521" fill="#059669" font-size="9.5">Response rate calculation</text>
+  <text x="572" y="536" fill="#059669" font-size="9.5">Status aggregation by stage</text>
+  <text x="572" y="551" fill="#059669" font-size="9.5">Source breakdown per platform</text>
+
+  <!-- Parser -->
+  <rect x="794" y="426" width="254" height="134" rx="6" fill="#fff" stroke="#bbf7d0" stroke-width="1.2"/>
+  <rect x="794" y="426" width="254" height="28" rx="6" fill="#f0fdf4"/>
+  <line x1="794" y1="454" x2="1048" y2="454" stroke="#bbf7d0" stroke-width="1"/>
+  <circle cx="812" cy="440" r="7" fill="#059669" opacity="0.15"/>
+  <text x="812" y="444" text-anchor="middle" fill="#059669" font-size="9" font-weight="700">D</text>
+  <text x="926" y="445" text-anchor="middle" fill="#166534" font-size="11.5" font-weight="700">Parser Service</text>
+
+  <text x="808" y="474" fill="#374151" font-size="10.5" font-weight="500">POST</text>
+  <text x="842" y="474" fill="#64748b" font-size="10.5">/parser/extract-html</text>
+  <line x1="808" y1="486" x2="1034" y2="486" stroke="#e2e8f0" stroke-width="0.75"/>
+  <text x="808" y="504" fill="#059669" font-size="9.5">LinkedIn parser (JSON-LD)</text>
+  <text x="808" y="520" fill="#059669" font-size="9.5">Greenhouse parser (meta tags)</text>
+  <text x="808" y="536" fill="#059669" font-size="9.5">Lever parser (API structure)</text>
+  <text x="808" y="552" fill="#059669" font-size="9.5">BeautifulSoup4 HTML fallback</text>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- DATA TIER -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <text x="36" y="614" fill="#475569" font-size="11" font-weight="600" letter-spacing="3">DATA TIER</text>
+  <line x1="115" y1="610" x2="1064" y2="610" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Arrow to DB -->
+  <line x1="400" y1="576" x2="400" y2="636" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrowAmber)"/>
+  <text x="415" y="608" fill="#d97706" font-size="8.5" font-weight="500">SQLAlchemy ORM</text>
+
+  <!-- Database -->
+  <rect x="160" y="638" width="480" height="120" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="160" y="638" width="480" height="32" rx="10" fill="#fef3c7"/>
+  <line x1="160" y1="670" x2="640" y2="670" stroke="#fde68a" stroke-width="1"/>
+
+  <!-- DB icon -->
+  <ellipse cx="185" cy="651" rx="9" ry="5" fill="none" stroke="#92400e" stroke-width="1.5"/>
+  <line x1="176" y1="651" x2="176" y2="660" stroke="#92400e" stroke-width="1.5"/>
+  <line x1="194" y1="651" x2="194" y2="660" stroke="#92400e" stroke-width="1.5"/>
+  <ellipse cx="185" cy="660" rx="9" ry="5" fill="none" stroke="#92400e" stroke-width="1.5"/>
+
+  <text x="204" y="659" fill="#78350f" font-size="13" font-weight="700">SQLite</text>
+  <text x="264" y="659" fill="#92400e" font-size="13" font-weight="400">→  PostgreSQL</text>
+
+  <!-- Users table -->
+  <rect x="180" y="684" width="200" height="58" rx="5" fill="#fff" stroke="#fde68a" stroke-width="1"/>
+  <rect x="180" y="684" width="200" height="22" rx="5" fill="#fefce8"/>
+  <line x1="180" y1="706" x2="380" y2="706" stroke="#fde68a" stroke-width="1"/>
+  <text x="280" y="700" text-anchor="middle" fill="#78350f" font-size="10" font-weight="700">users</text>
+  <text x="192" y="722" fill="#64748b" font-size="9">id · email · password_hash · name</text>
+  <text x="192" y="735" fill="#64748b" font-size="9">created_at</text>
+
+  <!-- Applications table -->
+  <rect x="400" y="684" width="220" height="58" rx="5" fill="#fff" stroke="#fde68a" stroke-width="1"/>
+  <rect x="400" y="684" width="220" height="22" rx="5" fill="#fefce8"/>
+  <line x1="400" y1="706" x2="620" y2="706" stroke="#fde68a" stroke-width="1"/>
+  <text x="510" y="700" text-anchor="middle" fill="#78350f" font-size="10" font-weight="700">applications</text>
+  <text x="412" y="722" fill="#64748b" font-size="9">id · user_id(FK) · company · role · status</text>
+  <text x="412" y="735" fill="#64748b" font-size="9">location · salary · tags · job_url · source</text>
+
+  <!-- FK arrow -->
+  <line x1="380" y1="714" x2="400" y2="714" stroke="#d97706" stroke-width="1.2" marker-end="url(#arrowAmber)"/>
+
+  <!-- ════════════════════════════════════════════════════════ -->
+  <!-- INFRA TIER -->
+  <!-- ════════════════════════════════════════════════════════ -->
+  <text x="700" y="645" fill="#475569" font-size="11" font-weight="600" letter-spacing="3">INFRASTRUCTURE</text>
+
+  <!-- Docker -->
+  <rect x="700" y="662" width="150" height="40" rx="6" fill="#fff" stroke="#94a3b8" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="775" y="687" text-anchor="middle" fill="#334155" font-size="11" font-weight="600">Docker</text>
+
+  <!-- CI/CD -->
+  <rect x="866" y="662" width="180" height="40" rx="6" fill="#fff" stroke="#94a3b8" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="956" y="687" text-anchor="middle" fill="#334155" font-size="11" font-weight="600">GitHub Actions CI/CD</text>
+
+  <!-- Test badge -->
+  <rect x="700" y="714" width="150" height="30" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="775" y="734" text-anchor="middle" fill="#166534" font-size="10" font-weight="600">24 tests passing</text>
+
+  <!-- CI steps -->
+  <rect x="866" y="714" width="180" height="30" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="956" y="734" text-anchor="middle" fill="#166534" font-size="10" font-weight="600">pytest → build → docker</text>
+
+  <!-- Data flow numbers -->
+  <rect x="36" y="295" width="168" height="18" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.75"/>
+  <text x="120" y="308" text-anchor="middle" fill="#94a3b8" font-size="8.5">User visits job page →</text>
+
+</svg>
